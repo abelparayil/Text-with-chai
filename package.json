@@ -1,0 +1,29 @@
+{
+  "name": "talk-a-tive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon backend/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
+    "server": "nodemon backend/server.js"
+  },
+  "author": "Abel",
+  "license": "ISC",
+  "dependencies": {
+    "@chakra-ui/react": "^2.2.8",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "framer-motion": "^7.2.0",
+    "i": "^0.3.7",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.2",
+    "nodemon": "^2.0.19",
+    "npm": "^8.18.0",
+    "socket.io": "^4.5.1"
+  }
+}
