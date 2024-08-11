@@ -12,18 +12,18 @@ import {
   Input,
   useToast,
   Box,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { useState } from "react";
-import { ChatState } from "../../Context/ChatProvider";
-import UserBadgeItem from "../userAvatar/UserBadgeItem";
-import UserListItem from "../userAvatar/UserListItem";
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useState } from 'react';
+import { ChatState } from '../../Context/ChatProvider';
+import UserBadgeItem from '../userAvatar/UserBadgeItem';
+import UserListItem from '../userAvatar/UserListItem';
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -33,11 +33,11 @@ const GroupChatModal = ({ children }) => {
   const handleGroup = (userToAdd) => {
     if (selectedUsers.includes(userToAdd)) {
       toast({
-        title: "User already added",
-        status: "warning",
+        title: 'User already added',
+        status: 'warning',
         duration: 5000,
         isClosable: true,
-        position: "top",
+        position: 'top',
       });
       return;
     }
@@ -58,18 +58,21 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `https://text-with-chai.onrender.com/api/user?search=${search}`,
+        config
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
-        status: "error",
+        title: 'Error Occured!',
+        description: 'Failed to Load the Search Results',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       });
     }
   };
@@ -81,11 +84,11 @@ const GroupChatModal = ({ children }) => {
   const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
       toast({
-        title: "Please fill all the feilds",
-        status: "warning",
+        title: 'Please fill all the feilds',
+        status: 'warning',
         duration: 5000,
         isClosable: true,
-        position: "top",
+        position: 'top',
       });
       return;
     }
@@ -97,7 +100,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.post(
-        `/api/chat/group`,
+        `https://text-with-chai.onrender.com/api/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),
@@ -107,20 +110,20 @@ const GroupChatModal = ({ children }) => {
       setChats([data, ...chats]);
       onClose();
       toast({
-        title: "New Group Chat Created!",
-        status: "success",
+        title: 'New Group Chat Created!',
+        status: 'success',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
     } catch (error) {
       toast({
-        title: "Failed to Create the Chat!",
+        title: 'Failed to Create the Chat!',
         description: error.response.data,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
     }
   };

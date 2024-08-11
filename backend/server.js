@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Add this line
 const { chats } = require('./data/data');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
@@ -12,6 +13,17 @@ const app = express();
 dotenv.config();
 connectDB();
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'https://text-with-chai.onrender.com',
+    'https://your-netlify-app.netlify.app',
+  ], // Add your Netlify domain if needed
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions)); // Apply CORS middleware
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
@@ -37,12 +49,16 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 
-const server = app.listen(4000, console.log(`Server started on port 4000`));
+const server = app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 const io = require('socket.io')(server, {
   pingTimeout: 60000,
   cors: {
-    origin: ['http://localhost:3000', 'https://text-with-chai.onrender.com'],
+    origin: [
+      'http://localhost:3000',
+      'https://text-with-chai.onrender.com',
+      'https://your-netlify-app.netlify.app',
+    ], // Ensure both localhost and production URLs are allowed
   },
 });
 

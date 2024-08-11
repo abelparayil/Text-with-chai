@@ -1,4 +1,4 @@
-import { ViewIcon } from "@chakra-ui/icons";
+import { ViewIcon } from '@chakra-ui/icons';
 import {
   Modal,
   ModalOverlay,
@@ -15,17 +15,17 @@ import {
   Box,
   IconButton,
   Spinner,
-} from "@chakra-ui/react";
-import axios from "axios";
-import { useState } from "react";
-import { ChatState } from "../../Context/ChatProvider";
-import UserBadgeItem from "../userAvatar/UserBadgeItem";
-import UserListItem from "../userAvatar/UserListItem";
+} from '@chakra-ui/react';
+import axios from 'axios';
+import { useState } from 'react';
+import { ChatState } from '../../Context/ChatProvider';
+import UserBadgeItem from '../userAvatar/UserBadgeItem';
+import UserListItem from '../userAvatar/UserListItem';
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [renameloading, setRenameLoading] = useState(false);
@@ -46,18 +46,21 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `https://text-with-chai.onrender.com/api/user?search=${search}`,
+        config
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
-        status: "error",
+        title: 'Error Occured!',
+        description: 'Failed to Load the Search Results',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       });
       setLoading(false);
     }
@@ -74,7 +77,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/rename`,
+        `https://text-with-chai.onrender.com/api/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -88,37 +91,37 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setRenameLoading(false);
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: 'Error Occured!',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       setRenameLoading(false);
     }
-    setGroupChatName("");
+    setGroupChatName('');
   };
 
   const handleAddUser = async (user1) => {
     if (selectedChat.users.find((u) => u._id === user1._id)) {
       toast({
-        title: "User Already in group!",
-        status: "error",
+        title: 'User Already in group!',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       return;
     }
 
     if (selectedChat.groupAdmin._id !== user._id) {
       toast({
-        title: "Only admins can add someone!",
-        status: "error",
+        title: 'Only admins can add someone!',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       return;
     }
@@ -131,7 +134,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/groupadd`,
+        `https://text-with-chai.onrender.com/api/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -144,26 +147,26 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setLoading(false);
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: 'Error Occured!',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       setLoading(false);
     }
-    setGroupChatName("");
+    setGroupChatName('');
   };
 
   const handleRemove = async (user1) => {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
       toast({
-        title: "Only admins can remove someone!",
-        status: "error",
+        title: 'Only admins can remove someone!',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       return;
     }
@@ -176,7 +179,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/groupremove`,
+        `https://text-with-chai.onrender.com/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -190,22 +193,22 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setLoading(false);
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: 'Error Occured!',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       });
       setLoading(false);
     }
-    setGroupChatName("");
+    setGroupChatName('');
   };
 
   return (
     <>
       <IconButton
-        display={{ base: "flex" }}
+        display={{ base: 'flex' }}
         icon={<ViewIcon />}
         onClick={onOpen}
       />
