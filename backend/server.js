@@ -19,6 +19,7 @@ const corsOptions = {
     'http://localhost:3000',
     'https://text-with-chai.onrender.com',
     'https://your-netlify-app.netlify.app',
+    'https://splendid-tarsier-8abf3d.netlify.app',
   ], // Add your Netlify domain if needed
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
