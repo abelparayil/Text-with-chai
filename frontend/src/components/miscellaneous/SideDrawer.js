@@ -1,39 +1,39 @@
-import { Button } from "@chakra-ui/button";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Input } from "@chakra-ui/input";
-import { Box, Text } from "@chakra-ui/layout";
+import { Button } from '@chakra-ui/button';
+import { useDisclosure } from '@chakra-ui/hooks';
+import { Input } from '@chakra-ui/input';
+import { Box, Text } from '@chakra-ui/layout';
 import {
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-} from "@chakra-ui/menu";
+} from '@chakra-ui/menu';
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-} from "@chakra-ui/modal";
-import { Tooltip } from "@chakra-ui/tooltip";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
-import { Avatar } from "@chakra-ui/avatar";
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useToast } from "@chakra-ui/toast";
-import ChatLoading from "../ChatLoading";
-import { Spinner } from "@chakra-ui/spinner";
-import ProfileModal from "./ProfileModal";
-import NotificationBadge from "react-notification-badge";
-import { Effect } from "react-notification-badge";
-import { getSender } from "../../config/ChatLogics";
-import UserListItem from "../userAvatar/UserListItem";
-import { ChatState } from "../../Context/ChatProvider";
+} from '@chakra-ui/modal';
+import { Tooltip } from '@chakra-ui/tooltip';
+import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import { Avatar } from '@chakra-ui/avatar';
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+import ChatLoading from '../ChatLoading';
+import { Spinner } from '@chakra-ui/spinner';
+import ProfileModal from './ProfileModal';
+import NotificationBadge from 'react-notification-badge';
+import { Effect } from 'react-notification-badge';
+import { getSender } from '../../config/ChatLogics';
+import UserListItem from '../userAvatar/UserListItem';
+import { ChatState } from '../../Context/ChatProvider';
 
 function SideDrawer() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
@@ -52,18 +52,18 @@ function SideDrawer() {
   const history = useHistory();
 
   const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
-    history.push("/");
+    localStorage.removeItem('userInfo');
+    history.push('/');
   };
 
   const handleSearch = async () => {
     if (!search) {
       toast({
-        title: "Please Enter something in search",
-        status: "warning",
+        title: 'Please Enter something in search',
+        status: 'warning',
         duration: 5000,
         isClosable: true,
-        position: "top-left",
+        position: 'top-left',
       });
       return;
     }
@@ -83,12 +83,12 @@ function SideDrawer() {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
-        status: "error",
+        title: 'Error Occured!',
+        description: 'Failed to Load the Search Results',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       });
     }
   };
@@ -100,7 +100,7 @@ function SideDrawer() {
       setLoadingChat(true);
       const config = {
         headers: {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
           Authorization: `Bearer ${user.token}`,
         },
       };
@@ -112,12 +112,12 @@ function SideDrawer() {
       onClose();
     } catch (error) {
       toast({
-        title: "Error fetching the chat",
+        title: 'Error fetching the chat',
         description: error.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       });
     }
   };
@@ -136,13 +136,13 @@ function SideDrawer() {
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
             <i className="fas fa-search"></i>
-            <Text display={{ base: "none", md: "flex" }} px={4}>
+            <Text display={{ base: 'none', md: 'flex' }} px={4}>
               Search User
             </Text>
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work sans">
-          Chat App
+          Text with Chai
         </Text>
         <div>
           <Menu>
@@ -154,7 +154,7 @@ function SideDrawer() {
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2}>
-              {!notification.length && "No New Messages"}
+              {!notification.length && 'No New Messages'}
               {notification.map((notif) => (
                 <MenuItem
                   key={notif._id}
@@ -181,7 +181,7 @@ function SideDrawer() {
             </MenuButton>
             <MenuList>
               <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>{" "}
+                <MenuItem>My Profile</MenuItem>{' '}
               </ProfileModal>
               <MenuDivider />
               <MenuItem onClick={logoutHandler}>Logout</MenuItem>
