@@ -20,6 +20,8 @@ const corsOptions = {
     'https://text-with-chai.onrender.com',
     'https://your-netlify-app.netlify.app',
     'https://splendid-tarsier-8abf3d.netlify.app',
+    'http://text-with-chai.abelparayil.co',
+    'https://text-with-chai.abelparayil.co',
   ],
   credentials: true,
 };
@@ -60,6 +62,8 @@ const io = require('socket.io')(server, {
       'https://text-with-chai.onrender.com',
       'https://your-netlify-app.netlify.app',
       'https://splendid-tarsier-8abf3d.netlify.app',
+      'http://text-with-chai.abelparayil.co',
+      'https://text-with-chai.abelparayil.co',
     ], // Ensure both localhost and production URLs are allowed
   },
 });
