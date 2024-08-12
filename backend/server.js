@@ -20,11 +20,11 @@ const corsOptions = {
     'https://text-with-chai.onrender.com',
     'https://your-netlify-app.netlify.app',
     'https://splendid-tarsier-8abf3d.netlify.app',
-  ], // Add your Netlify domain if needed
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  ],
+  credentials: true,
 };
 
-app.use(cors(corsOptions)); // Apply CORS middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/user', userRoutes);
@@ -59,6 +59,7 @@ const io = require('socket.io')(server, {
       'http://localhost:3000',
       'https://text-with-chai.onrender.com',
       'https://your-netlify-app.netlify.app',
+      'https://splendid-tarsier-8abf3d.netlify.app',
     ], // Ensure both localhost and production URLs are allowed
   },
 });
